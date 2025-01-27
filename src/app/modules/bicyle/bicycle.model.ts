@@ -1,4 +1,4 @@
-import { Bicyle } from './bicyle/bicyle.interface';
+import { Bicyle } from './bicyle.interface';
 import { Schema, model, connect } from 'mongoose';
 
 // import validator from 'validator';

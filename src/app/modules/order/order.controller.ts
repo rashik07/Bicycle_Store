@@ -12,18 +12,20 @@ const createOrder = async (req: Request, res: Response) => {
     );
 
     if (!productData) {
-      return res.status(404).json({
-        message: 'Product not found',
+      throw {
+        message: 'bicycle not found',
         status: false,
-      });
+        code: 404,
+      }
     }
 
     // Check if sufficient stock is available
     if (productData.quantity < orderData?.quantity) {
-      return res.status(400).json({
-        message: 'Insufficient stock available',
+      throw {
+        message: 'Insufficient stock for the requested quantity',
         status: false,
-      });
+        code: 400,
+      }
     }
 
     // Update product inventory

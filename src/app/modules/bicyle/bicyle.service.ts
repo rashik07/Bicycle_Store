@@ -1,4 +1,4 @@
-import { BicyleModel } from '../bicycle.model';
+import { BicyleModel } from './bicycle.model';
 import { Bicyle } from './bicyle.interface';
 
 const createBicyleIntoDB = async (bicyle: Bicyle) => {

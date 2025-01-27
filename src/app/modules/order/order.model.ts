@@ -1,6 +1,6 @@
 
 import mongoose, { Schema, model, connect } from 'mongoose';
-import { OrderBicyle } from './order/order.interface';
+import { OrderBicyle } from './order.interface';
 import { string } from 'zod';
 
 // import validator from 'validator';

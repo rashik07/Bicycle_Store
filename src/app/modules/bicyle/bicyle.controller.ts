@@ -2,29 +2,24 @@ import { Bicyle } from './bicyle.interface';
 
 import { Request, Response } from 'express';
 import { BicyleServices } from './bicyle.service';
+import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
+import httpStatus from 'http-status';
 
-const createBicyle = async (req: Request, res: Response) => {
-  try {
+const createBicyle =  catchAsync(async (req, res) => {
+
     const  bicyleData  = req.body;
-
     
-
     //will call service function to send this data
     const result = await BicyleServices.createBicyleIntoDB(bicyleData);
-    //send response
-    res.status(200).json({
+    //send response Bicycle created successfully
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
-      message: 'Bicycle created successfully',
+      message: 'Academic department is created succesfully',
       data: result,
     });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: 'something went wrong',
-      error: err,
-    });
-  }
-};
+});
 
 const getAllBicyle = async (req: Request, res: Response) => {
   try {
