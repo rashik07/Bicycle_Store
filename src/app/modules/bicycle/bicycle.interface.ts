@@ -1,6 +1,6 @@
 
 
-export type Bicyle = {
+export type Bicycle = {
   name: string;
   brand: string;
   price: number;

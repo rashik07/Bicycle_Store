@@ -1,4 +1,4 @@
-import { BicyleServices } from '../bicyle/bicyle.service';
+import { BicyleServices } from '../bicycle/bicycle.service';
 import { orderServices } from './order.service';
 import { Request, Response } from 'express';
 

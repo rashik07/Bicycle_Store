@@ -20,6 +20,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   let errorSources: TErrorSources = [
     {
       path: '',
+
       message: 'Something went wrong',
     },
   ];
@@ -65,8 +66,9 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
   //ultimate return
   return res.status(statusCode).json({
-    success: false,
     message,
+    success: false,
+   
     errorSources,
     err,
     stack: config.NODE_ENV === 'development' ? err?.stack : null,

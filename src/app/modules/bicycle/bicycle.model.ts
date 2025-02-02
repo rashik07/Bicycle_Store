@@ -1,10 +1,10 @@
-import { Bicyle } from './bicyle.interface';
+import { Bicycle } from './bicycle.interface';
 import { Schema, model, connect } from 'mongoose';
 
 // import validator from 'validator';
 // import isEmail from 'validator/lib/isEmail';
 
-const bicyleSchema = new Schema<Bicyle>({
+const bicycleSchema = new Schema<Bicycle>({
   name: {
     type: String,
     required: true,
@@ -47,10 +47,10 @@ const bicyleSchema = new Schema<Bicyle>({
 );
 
 // Add pre-save middleware to auto-update inStock
-bicyleSchema.pre('save', function (next) {
+bicycleSchema.pre('save', function (next) {
   this.inStock = this.quantity > 0;
   next();
 });
 
 // 3. Create a Model.
-export const BicyleModel = model<Bicyle>('Bicycle', bicyleSchema);
+export const BicycleModel = model<Bicycle>('Bicycle', bicycleSchema);
