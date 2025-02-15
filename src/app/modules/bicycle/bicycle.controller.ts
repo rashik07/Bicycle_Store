@@ -7,9 +7,10 @@ import httpStatus from 'http-status';
 
 const createBicycle = catchAsync(async (req, res) => {
   const bicycleData = req.body;
-
+// console.log(bicycleData);
+// console.log(req.file);
   //will call service function to send this data
-  const result = await BicycleServices.createBicycleIntoDB(bicycleData);
+  const result = await BicycleServices.createBicycleIntoDB(req.file,bicycleData);
   //send response Bicycle created successfully
   sendResponse(res, {
     statusCode: httpStatus.OK,

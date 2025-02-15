@@ -1,10 +1,21 @@
 import { BicycleModel } from './bicycle.model';
 import { Bicycle } from './bicycle.interface';
 import QueryBuilder from '../../builder/QueryBuilder';
+import { sendImageToCloudinary } from '../../utils/sendImageToCloudinary';
 
-const createBicycleIntoDB = async (bicycle: Bicycle) => {
+const createBicycleIntoDB = async (file: any,bicycle: Bicycle) => {
+  // console.log(file);
+  if (file) {
+    const imageName = `${file?.filename}`;
+    const path = file?.path;
+
+    //send image to cloudinary
+    const { secure_url } = await sendImageToCloudinary(imageName, path);
+    bicycle.productImg = secure_url as string;
+  }
+  console.log(bicycle);
   const result = await BicycleModel.create(bicycle);
-
+  console.log("result",result); 
   return result;
 };
 
