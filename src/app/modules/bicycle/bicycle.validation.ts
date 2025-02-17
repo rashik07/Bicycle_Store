@@ -9,7 +9,7 @@ const createBicycleValidationSchema = z.object({
     description: z.string().optional(),
 
     quantity: z.number().int().nonnegative("Quantity must be a non-negative integer"),
-    inStock: z.boolean(),
+    inStock: z.boolean().optional(),
   }),
 });
 

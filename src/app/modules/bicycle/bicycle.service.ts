@@ -27,9 +27,9 @@ const getAllBicycleFromDB = async (query: Record<string, unknown>) => {
     .sort()
     .paginate()
     .fields();
-
+    const meta = await bicycleQuery.countTotal();
   const result = await bicycleQuery.modelQuery;
-  const meta = await bicycleQuery.countTotal();
+
 
   return {
     meta,
