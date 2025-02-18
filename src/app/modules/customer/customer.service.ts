@@ -33,8 +33,7 @@ const getAllCustomersFromDB = async (query: Record<string, unknown>) => {
 
 const getSingleCustomerFromDB = async (id: string) => {
   const result = await Customer.findById(id)
-    .populate('admissionSemester')
-    .populate('academicDepartment academicFaculty');
+ 
   return result;
 };
 

@@ -27,11 +27,13 @@ const createCustomerIntoDB = async (
 
   //set customer role
   userData.role = 'customer';
+
   // set customer email
   userData.email = payload.email;
 
-
+console.log('userData', userData);
   const session = await mongoose.startSession();
+  // console.log(session.startTransaction);
 
   try {
     session.startTransaction();
@@ -48,7 +50,7 @@ const createCustomerIntoDB = async (
 
     // create a user (transaction-1)
     const newUser = await User.create([userData], { session }); // array
-
+console.log(newUser);
     //create a Customer
     if (!newUser.length) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create user');

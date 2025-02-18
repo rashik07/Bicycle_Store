@@ -11,20 +11,18 @@ export type TUserName = {
 export type TCustomer = {
  
   user: Types.ObjectId;
-  name: TUserName;
+  name?: TUserName;
   gender?: 'male' | 'female' | 'other';
   dateOfBirth?: Date;
   email: string;
-  contactNo: string;
+  contactNo?: string;
   emergencyContactNo?: string;
-  bloogGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
-  presentAddress: string;
-  permanentAddress: string;
+  bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+  presentAddress?: string;
+  permanentAddress?: string;
   profileImg?: string;
-  admissionSemester: Types.ObjectId;
-  academicDepartment: Types.ObjectId;
-  academicFaculty: Types.ObjectId;
   isDeleted: boolean;
+
 };
 
 //for creating static

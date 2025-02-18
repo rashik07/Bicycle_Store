@@ -17,16 +17,16 @@ const createUserNameValidationSchema = z.object({
 export const createCustomerValidationSchema = z.object({
   body: z.object({
     password: z.string().max(20).optional(),
-    Customer: z.object({
-      name: createUserNameValidationSchema,
-      gender: z.enum(['male', 'female', 'other']),
+    customer: z.object({
+      name: createUserNameValidationSchema.optional(),
+      gender: z.enum(['male', 'female', 'other']).optional(),
       dateOfBirth: z.string().optional(),
       email: z.string().email(),
-      contactNo: z.string(),
-      emergencyContactNo: z.string(),
-      bloogGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']),
-      presentAddress: z.string(),
-      permanentAddress: z.string(),
+      contactNo: z.string().optional(),
+      emergencyContactNo: z.string().optional(),
+      bloogGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']).optional(),
+      presentAddress: z.string().optional(),
+      permanentAddress: z.string().optional(),
    
     }),
   }),

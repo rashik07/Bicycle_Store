@@ -47,12 +47,12 @@ const customerSchema = new Schema<TCustomer, CustomerModel>(
       required: [true, 'Email is required'],
       unique: true,
     },
-    contactNo: { type: String, required: [true, 'Contact number is required'] },
+    contactNo: { type: String },
     emergencyContactNo: {
       type: String,
       // required: [true, 'Emergency contact number is required'],
     },
-    bloogGroup: {
+    bloodGroup: {
       type: String,
       enum: {
         values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
@@ -106,8 +106,8 @@ customerSchema.pre('aggregate', function (next) {
 });
 
 //creating a custom static method
-customerSchema.statics.isUserExists = async function (id: string) {
-  const existingUser = await Customer.findOne({ id });
+customerSchema.statics.isUserExists = async function (email: string) {
+  const existingUser = await Customer.findOne({ email });
   return existingUser;
 };
 

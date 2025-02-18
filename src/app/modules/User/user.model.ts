@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-this-alias */
+
 import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import config from '../../config';
@@ -7,7 +7,6 @@ import { TUser, UserModel } from './user.interface';
 
 const userSchema = new Schema<TUser, UserModel>(
   {
- 
     email: {
       type: String,
       required: true,
@@ -27,7 +26,7 @@ const userSchema = new Schema<TUser, UserModel>(
     },
     role: {
       type: String,
-      enum: ['superAdmin', 'student', 'faculty', 'admin'],
+      enum: ['admin', 'customer'],
     },
     status: {
       type: String,
@@ -43,6 +42,9 @@ const userSchema = new Schema<TUser, UserModel>(
     timestamps: true,
   },
 );
+
+// Add unique index to email field
+userSchema.index({ email: 1 }, { unique: true });
 
 userSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
