@@ -40,7 +40,7 @@ console.log('userData', userData);
     //set  generated id
 
     if (file) {
-      const imageName = `${payload?.name?.firstName}`;
+      const imageName = `${payload?.name}`;
       const path = file?.path;
 
       //send image to cloudinary

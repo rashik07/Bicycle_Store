@@ -1,24 +1,24 @@
 import { Schema, model } from 'mongoose';
 import { CustomerModel, TCustomer, TUserName } from './customer.interface';
 
-const userNameSchema = new Schema<TUserName>({
-  firstName: {
-    type: String,
-    required: [true, 'First Name is required'],
-    trim: true,
-    maxlength: [20, 'Name can not be more than 20 characters'],
-  },
-  middleName: {
-    type: String,
-    trim: true,
-  },
-  lastName: {
-    type: String,
-    trim: true,
-    required: [true, 'Last Name is required'],
-    maxlength: [20, 'Name can not be more than 20 characters'],
-  },
-});
+// const userNameSchema = new Schema<TUserName>({
+//   firstName: {
+//     type: String,
+//     required: [true, 'First Name is required'],
+//     trim: true,
+//     maxlength: [20, 'Name can not be more than 20 characters'],
+//   },
+//   middleName: {
+//     type: String,
+//     trim: true,
+//   },
+//   lastName: {
+//     type: String,
+//     trim: true,
+//     required: [true, 'Last Name is required'],
+//     maxlength: [20, 'Name can not be more than 20 characters'],
+//   },
+// });
 
 const customerSchema = new Schema<TCustomer, CustomerModel>(
   {
@@ -30,7 +30,7 @@ const customerSchema = new Schema<TCustomer, CustomerModel>(
       ref: 'User',
     },
     name: {
-      type: userNameSchema,
+      type: String,
       // required: [true, 'Name is required'],
     },
     gender: {
@@ -85,9 +85,9 @@ const customerSchema = new Schema<TCustomer, CustomerModel>(
 );
 
 //virtual
-customerSchema.virtual('fullName').get(function () {
-  return this?.name?.firstName + this?.name?.middleName + this?.name?.lastName;
-});
+// customerSchema.virtual('fullName').get(function () {
+//   return this?.name?.firstName + this?.name?.middleName + this?.name?.lastName;
+// });
 
 // Query Middleware
 customerSchema.pre('find', function (next) {

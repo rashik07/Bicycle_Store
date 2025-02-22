@@ -1,17 +1,17 @@
 import { Model, Types } from 'mongoose';
 
-export type TUserName = {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-};
+// export type TUserName = {
+//   firstName: string;
+//   middleName: string;
+//   lastName: string;
+// };
 
 
 
 export type TCustomer = {
  
   user: Types.ObjectId;
-  name?: TUserName;
+  name?: string;
   gender?: 'male' | 'female' | 'other';
   dateOfBirth?: Date;
   email: string;

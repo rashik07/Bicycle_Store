@@ -16,11 +16,11 @@ const router = express.Router();
 
 router.post(
   '/create-customer',
-  upload.single('file'),
-  (req: Request, res: Response, next: NextFunction) => {
-    req.body = JSON.parse(req.body.data);
-    next();
-  },
+  // upload.single('file'),
+  // (req: Request, res: Response, next: NextFunction) => {
+  //   req.body = JSON.parse(req.body.data);
+  //   next();
+  // },
   validateRequest(createCustomerValidationSchema),
   UserControllers.createCustomer,
 );
