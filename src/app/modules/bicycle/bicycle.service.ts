@@ -57,10 +57,18 @@ const deleteSpecificBicycleFromDB = async (_id: string) => {
   return result;
 };
 
+const getBrandsFromDB = async () => {
+  const result = await BicycleModel.distinct('brand');
+
+  return result;
+};
+
+
 export const BicycleServices = {
   createBicycleIntoDB,
   getAllBicycleFromDB,
   getSpecificByBicycleFromDB,
   updateBicycleFromDB,
   deleteSpecificBicycleFromDB,
+  getBrandsFromDB
 };

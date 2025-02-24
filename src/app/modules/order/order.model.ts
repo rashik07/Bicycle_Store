@@ -1,26 +1,42 @@
-
-import mongoose, { Schema, model, connect } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 import { OrderBicyle } from './order.interface';
-import { string } from 'zod';
 
-// import validator from 'validator';
-// import isEmail from 'validator/lib/isEmail';
-
-const orderBicyleSchema = new Schema<OrderBicyle>({
+const orderBicyleSchema = new Schema<OrderBicyle>(
+  {
     email: { type: String, required: true },
-    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Bicycle', required: true },
-    quantity: { type: Number, required: true, min: 1 },
+    products: [],
+    address: { type: String, required: true },
     totalPrice: { type: Number, required: true },
-},
-{ timestamps: true } // Automatically adds `createdAt` and `updatedAt`
-
+    status: {
+        type: String,
+        enum: ['pending', 'shipped', 'delivered', 'cancelled', 'paid'],
+        default: 'pending',
+      },
+      transaction: {
+        paymentId: {
+          type: String,
+        },
+        transactionStatus: {
+          type: String,
+        },
+        bank_status: {
+          type: String,
+        },
+        sp_code: {
+          type: String,
+        },
+        sp_message: {
+          type: String,
+        },
+        method: {
+          type: String,
+        },
+        date_time: {
+          type: String,
+        },
+      },
+  },
+  { timestamps: true } // Automatically adds `createdAt` and `updatedAt`
 );
 
-
-// orderBicyleSchema.pre('aggregate', function(next) {
-//     console.log(this.pipeline());
-//     next();
-//   });
-
-// 3. Create a Model.
 export const OrderBicyleModel = model<OrderBicyle>('OrderBicycle', orderBicyleSchema);

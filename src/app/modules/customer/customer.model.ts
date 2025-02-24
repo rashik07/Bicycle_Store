@@ -1,24 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { CustomerModel, TCustomer, TUserName } from './customer.interface';
+import { CustomerModel, TCustomer } from './customer.interface';
 
-// const userNameSchema = new Schema<TUserName>({
-//   firstName: {
-//     type: String,
-//     required: [true, 'First Name is required'],
-//     trim: true,
-//     maxlength: [20, 'Name can not be more than 20 characters'],
-//   },
-//   middleName: {
-//     type: String,
-//     trim: true,
-//   },
-//   lastName: {
-//     type: String,
-//     trim: true,
-//     required: [true, 'Last Name is required'],
-//     maxlength: [20, 'Name can not be more than 20 characters'],
-//   },
-// });
+
 
 const customerSchema = new Schema<TCustomer, CustomerModel>(
   {

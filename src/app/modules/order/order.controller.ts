@@ -1,54 +1,34 @@
-import { BicyleServices } from '../bicycle/bicycle.service';
+import { BicycleModel } from '../bicycle/bicycle.model';
+// import { BicyleServices } from '../bicycle/bicycle.service';
+import { OrderBicyle } from './order.interface';
+import { OrderBicyleModel } from './order.model';
 import { orderServices } from './order.service';
 import { Request, Response } from 'express';
 
 const createOrder = async (req: Request, res: Response) => {
+
   try {
-    const orderData = req.body;
+    const { email, products, address, totalPrice } = req.body as OrderBicyle;
+    console.log(req.body);
 
-    // Find the product by ID
-    const productData = await BicyleServices.getSpecificByBicyleFromDB(
-      orderData?.product,
-    );
-
-    if (!productData) {
-      throw {
-        message: 'bicycle not found',
-        status: false,
-        code: 404,
+    // Validate that all bicycles exist
+    for (const product of products) {
+      const bicycle = await BicycleModel.findById(product._id);
+      if (!bicycle) {
+        return res.status(400).json({ message: `Bicycle with ID ${product._id} not found` });
       }
+   
     }
 
-    // Check if sufficient stock is available
-    if (productData.quantity < orderData?.quantity) {
-      throw {
-        message: 'Insufficient stock for the requested quantity',
-        status: false,
-        code: 400,
-      }
-    }
 
-    // Update product inventory
-    productData.quantity -= orderData?.quantity;
-    if (productData.quantity === 0) {
-      productData.inStock = false;
-    }
-    await productData.save();
 
-    //will call service function to send this data
-    const result = await orderServices.createOrderIntoDB(orderData);
-    //send response
-    res.status(200).json({
-      status: true,
-      message: 'Order created successfully',
-      data: result,
-    });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: 'something went wrong',
-      error: err,
-    });
+    // Create order
+    const order = new OrderBicyleModel({ email, products, address, totalPrice });
+    await order.save();
+
+    res.status(201).json(order);
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating order', error });
   }
 };
 

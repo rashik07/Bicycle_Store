@@ -22,6 +22,7 @@ router.post(
   validateRequest(bicycleValidation.createBicycleValidationSchema),
   BicycleControllers.createBicycle,
 );
+router.get('/brands', BicycleControllers.getBrands);
 router.get('/', BicycleControllers.getAllBicycle);
 router.get('/:productId', BicycleControllers.getSpecificByBicycle);
 router.put(

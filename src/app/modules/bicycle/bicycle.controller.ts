@@ -80,10 +80,21 @@ const deleteSpecificBicycle = catchAsync(async (req, res) => {
   
 });
 
+const getBrands = catchAsync(async (req, res) => {
+  const result = await BicycleServices.getBrandsFromDB();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Brands retrieved successfully',
+    data: result,
+  });
+});
+
 export const BicycleControllers = {
   createBicycle,
   getAllBicycle,
   getSpecificByBicycle,
   updateSpecificByBicycle,
   deleteSpecificBicycle,
+  getBrands
 };
