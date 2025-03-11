@@ -1,25 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { BloodGroup, Gender } from './admin.constant';
-import { AdminModel, TAdmin, TUserName } from './admin.interface';
-
-const userNameSchema = new Schema<TUserName>({
-  firstName: {
-    type: String,
-    required: [true, 'First Name is required'],
-    trim: true,
-    maxlength: [20, 'Name can not be more than 20 characters'],
-  },
-  middleName: {
-    type: String,
-    trim: true,
-  },
-  lastName: {
-    type: String,
-    trim: true,
-    required: [true, 'Last Name is required'],
-    maxlength: [20, 'Name can not be more than 20 characters'],
-  },
-});
+import { AdminModel, TAdmin,  } from './admin.interface';
 
 const adminSchema = new Schema<TAdmin, AdminModel>(
   {
@@ -35,7 +16,7 @@ const adminSchema = new Schema<TAdmin, AdminModel>(
       required: [true, 'Designation is required'],
     },
     name: {
-      type: userNameSchema,
+      type: String,
       required: [true, 'Name is required'],
     },
     gender: {
@@ -85,16 +66,7 @@ const adminSchema = new Schema<TAdmin, AdminModel>(
   },
 );
 
-// generating full name
-adminSchema.virtual('fullName').get(function () {
-  return (
-    this?.name?.firstName +
-    '' +
-    this?.name?.middleName +
-    '' +
-    this?.name?.lastName
-  );
-});
+
 
 // filter out deleted documents
 adminSchema.pre('find', function (next) {

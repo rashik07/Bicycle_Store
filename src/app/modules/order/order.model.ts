@@ -1,42 +1,66 @@
-import mongoose, { Schema, model } from 'mongoose';
-import { OrderBicyle } from './order.interface';
+import { Schema, model } from 'mongoose';
+import { TOrderProduct } from './order.interface';
 
-const orderBicyleSchema = new Schema<OrderBicyle>(
+const orderSchema = new Schema<TOrderProduct>(
   {
-    email: { type: String, required: true },
-    products: [],
-    address: { type: String, required: true },
-    totalPrice: { type: Number, required: true },
+    orderId: {
+      type: String,
+      unique: true,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: 'Bicycle',
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
     status: {
+      type: String,
+      enum: ['pending', 'shipped', 'delivered', 'cancelled', 'paid'],
+      default: 'pending',
+    },
+    transaction: {
+      paymentId: {
         type: String,
-        enum: ['pending', 'shipped', 'delivered', 'cancelled', 'paid'],
-        default: 'pending',
       },
-      transaction: {
-        paymentId: {
-          type: String,
-        },
-        transactionStatus: {
-          type: String,
-        },
-        bank_status: {
-          type: String,
-        },
-        sp_code: {
-          type: String,
-        },
-        sp_message: {
-          type: String,
-        },
-        method: {
-          type: String,
-        },
-        date_time: {
-          type: String,
-        },
+      transactionStatus: {
+        type: String,
       },
+      bank_status: {
+        type: String,
+      },
+      sp_code: {
+        type: String,
+      },
+      sp_message: {
+        type: String,
+      },
+      method: {
+        type: String,
+      },
+      date_time: {
+        type: String,
+      },
+    },
   },
-  { timestamps: true } // Automatically adds `createdAt` and `updatedAt`
+  {
+    timestamps: true,
+  },
 );
 
-export const OrderBicyleModel = model<OrderBicyle>('OrderBicycle', orderBicyleSchema);
+export const OrderBicyleModel = model<TOrderProduct>('Order', orderSchema);

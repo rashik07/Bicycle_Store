@@ -1,15 +1,12 @@
 import { Types } from 'mongoose';
 
-export interface OrderProduct {
-  bicycle: Types.ObjectId; // Reference to Bicycle model
-
-}
-
-export interface OrderBicyle {
-  email: string;
-  products: OrderProduct[]; // Array of products in the order
-  address: string;
+export type TOrderProduct = {
+  orderId: string;
+  user: Types.ObjectId;
+  product: Types.ObjectId;
+  quantity: number;
   totalPrice: number;
+  address?: string;
   status?: 'pending' | 'shipped' | 'delivered' | 'cancelled' | 'paid';
   transaction?: {
     paymentId?: string;
@@ -20,7 +17,4 @@ export interface OrderBicyle {
     method?: string;
     date_time?: string;
   }
-
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+};

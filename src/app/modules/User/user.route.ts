@@ -16,19 +16,14 @@ const router = express.Router();
 
 router.post(
   '/create-customer',
-  // upload.single('file'),
-  // (req: Request, res: Response, next: NextFunction) => {
-  //   req.body = JSON.parse(req.body.data);
-  //   next();
-  // },
+
   validateRequest(createCustomerValidationSchema),
   UserControllers.createCustomer,
 );
 
-
 router.post(
   '/create-admin',
-  
+
   upload.single('file'),
   (req: Request, res: Response, next: NextFunction) => {
     req.body = JSON.parse(req.body.data);
@@ -38,22 +33,18 @@ router.post(
   UserControllers.createAdmin,
 );
 
-router.post(
+router.get(
+  '/me',
+  auth(USER_ROLE.admin, USER_ROLE.customer),
+  UserControllers.getMe,
+);
+
+router.patch(
   '/change-status/:id',
-  auth( USER_ROLE.admin),
+  auth(USER_ROLE.admin),
   validateRequest(UserValidation.changeStatusValidationSchema),
   UserControllers.changeStatus,
 );
-
-router.get(
-  '/me',
-  auth(
-
-    USER_ROLE.admin,
-    USER_ROLE.customer,
-   
-  ),
-  UserControllers.getMe,
-);
+router.get('/all', auth(USER_ROLE.admin), UserControllers.getAllUsers);
 
 export const UserRoutes = router;

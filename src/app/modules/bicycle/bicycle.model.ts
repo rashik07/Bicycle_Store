@@ -1,4 +1,4 @@
-import { Bicycle } from './bicycle.interface';
+import { Bicycle, IBicycle } from './bicycle.interface';
 import { Schema, model, connect } from 'mongoose';
 
 // import validator from 'validator';
@@ -40,18 +40,16 @@ const bicycleSchema = new Schema<Bicycle>(
       default: function () {
         return this.quantity > 0;
       },
-      
     },
     productImg: { type: String, default: '' },
   },
   { timestamps: true }, // Automatically adds `createdAt` and `updatedAt`
 );
 
-// Add pre-save middleware to auto-update inStock
-bicycleSchema.pre('save', function (next) {
-  this.inStock = this.quantity > 0;
-  next();
-});
-
+bicycleSchema.statics.isBicycleExists = async function (
+  id: string,
+): Promise<Bicycle | null> {
+  return await BicycleModel.findOne({ _id: id });
+};
 // 3. Create a Model.
-export const BicycleModel = model<Bicycle>('Bicycle', bicycleSchema);
+export const BicycleModel = model<Bicycle, IBicycle>('Bicycle', bicycleSchema);

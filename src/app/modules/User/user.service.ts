@@ -13,6 +13,7 @@ import { User } from './user.model';
 
 import { TCustomer } from '../customer/customer.interface';
 import { Customer } from '../customer/customer.model';
+import QueryBuilder from '../../builder/QueryBuilder';
 
 const createCustomerIntoDB = async (
   file: any,
@@ -30,6 +31,7 @@ const createCustomerIntoDB = async (
 
   // set customer email
   userData.email = payload.email;
+  userData.name = payload.name;
 
 console.log('userData', userData);
   const session = await mongoose.startSession();
@@ -94,6 +96,7 @@ const createAdminIntoDB = async (
   userData.role = 'admin';
   //set admin email
   userData.email = payload.email;
+  userData.name = payload.name;
   const session = await mongoose.startSession();
 
   try {
@@ -101,7 +104,7 @@ const createAdminIntoDB = async (
 
 
     if (file) {
-      const imageName = `${payload?.name?.firstName}`;
+      const imageName = `${payload?.name}`;
       const path = file?.path;
       //send image to cloudinary
       const { secure_url } = await sendImageToCloudinary(imageName, path);
@@ -160,9 +163,23 @@ const changeStatus = async (id: string, payload: { status: string }) => {
   return result;
 };
 
+const getAllUsersFromDB = async (query: Record<string, unknown>) => {
+  const userQuery = new QueryBuilder(User.find(), query)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+  const data = await userQuery.modelQuery;
+  const meta = await userQuery.countTotal();
+  return {
+    data,
+    meta,
+  };
+};
 export const UserServices = {
   createCustomerIntoDB,
   // createFacultyIntoDB,
+  getAllUsersFromDB,
   createAdminIntoDB,
   getMe,
   changeStatus,

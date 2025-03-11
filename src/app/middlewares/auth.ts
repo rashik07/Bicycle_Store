@@ -10,7 +10,7 @@ import catchAsync from '../utils/catchAsync';
 const auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
-
+console.log(token)
     // checking if the token is missing
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
@@ -28,10 +28,10 @@ const auth = (...requiredRoles: TUserRole[]) => {
     }
 
 
-    const { role, userEmail, iat } = decoded;
+    const { role, email, iat } = decoded;
 
     // checking if the user is exist
-    const user = await User.isUserExistsByCustomEmail(userEmail);
+    const user = await User.isUserExistsByCustomEmail(email);
 
     if (!user) {
       throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');

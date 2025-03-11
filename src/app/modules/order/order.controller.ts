@@ -1,36 +1,18 @@
-import { BicycleModel } from '../bicycle/bicycle.model';
-// import { BicyleServices } from '../bicycle/bicycle.service';
-import { OrderBicyle } from './order.interface';
-import { OrderBicyleModel } from './order.model';
-import { orderServices } from './order.service';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 
-const createOrder = async (req: Request, res: Response) => {
+import catchAsync from '../../utils/catchAsync';
+import { orderServices } from './order.service';
 
-  try {
-    const { email, products, address, totalPrice } = req.body as OrderBicyle;
-    console.log(req.body);
-
-    // Validate that all bicycles exist
-    for (const product of products) {
-      const bicycle = await BicycleModel.findById(product._id);
-      if (!bicycle) {
-        return res.status(400).json({ message: `Bicycle with ID ${product._id} not found` });
-      }
-   
-    }
-
-
-
-    // Create order
-    const order = new OrderBicyleModel({ email, products, address, totalPrice });
-    await order.save();
-
-    res.status(201).json(order);
-  } catch (error) {
-    res.status(500).json({ message: 'Error creating order', error });
-  }
-};
+const createOrder = catchAsync(async (req: Request, res: Response) => {
+  const orderData = req.body;
+  const result = await orderServices.createOrderIntoDB(orderData, req.ip!);
+  res.status(200).json({
+    success: true,
+    message: 'Order created successfully',
+    data: result,
+  });
+});
 
 const getTotalRevenue = async (req: Request, res: Response) => {
   try {
