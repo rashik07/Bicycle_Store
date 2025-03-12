@@ -13,9 +13,9 @@ const createBicycleIntoDB = async (file: any,bicycle: Bicycle) => {
     const { secure_url } = await sendImageToCloudinary(imageName, path);
     bicycle.productImg = secure_url as string;
   }
-  console.log(bicycle);
+  // console.log(bicycle);
   const result = await BicycleModel.create(bicycle);
-  console.log("result",result); 
+  // console.log("result",result); 
   return result;
 };
 

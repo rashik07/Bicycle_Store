@@ -27,7 +27,12 @@ router.get('/', BicycleControllers.getAllBicycle);
 router.get('/:productId', BicycleControllers.getSpecificByBicycle);
 router.put(
   '/:productId',
+  // upload.single('file'),
   auth(USER_ROLE.admin),
+  // (req: Request, res: Response, next: NextFunction) => {
+  //   req.body = JSON.parse(req.body.data);
+  //   next();
+  // },
   BicycleControllers.updateSpecificByBicycle,
 );
 router.delete(
