@@ -30,52 +30,52 @@ const createOrderIntoDB = async (order: TOrderProduct, client_ip: string) => {
     order.orderId = await generateOrderId();
 
     const newOrder = await OrderBicyleModel.create(order);
+return newOrder;
+    // if (!newOrder) {
+    //   throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create order');
+    // }
 
-    if (!newOrder) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create order');
-    }
+    // const user = await User.findById(newOrder.user);
 
-    const user = await User.findById(newOrder.user);
+    // const shurjopayPayload = {
+    //   amount: order.totalPrice,
+    //   order_id: order.orderId,
+    //   currency: 'BDT',
+    //   customer_name: user?.name,
+    //   customer_address: order.address,
+    //   customer_email: user?.email,
+    //   customer_phone: 'N/A',
+    //   customer_city: 'N/A',
+    //   client_ip,
+    // };
 
-    const shurjopayPayload = {
-      amount: order.totalPrice,
-      order_id: order.orderId,
-      currency: 'BDT',
-      customer_name: user?.name,
-      customer_address: order.address,
-      customer_email: user?.email,
-      customer_phone: 'N/A',
-      customer_city: 'N/A',
-      client_ip,
-    };
+    // const payment = await orderUtils.makePayment(shurjopayPayload);
 
-    const payment = await orderUtils.makePayment(shurjopayPayload);
+    // let updatedOrder: TOrderProduct | null = null;
 
-    let updatedOrder: TOrderProduct | null = null;
+    // if (payment?.transactionStatus) {
+    //   updatedOrder = await OrderBicyleModel.findOneAndUpdate(
+    //     { orderId: order.orderId },
+    //     {
+    //       $set: {
+    //         transaction: {
+    //           paymentId: payment.sp_order_id,
+    //           transactionStatus: payment.transactionStatus,
+    //         },
+    //       },
+    //     },
+    //     { new: true },
+    //   );
+    // }
 
-    if (payment?.transactionStatus) {
-      updatedOrder = await OrderBicyleModel.findOneAndUpdate(
-        { orderId: order.orderId },
-        {
-          $set: {
-            transaction: {
-              paymentId: payment.sp_order_id,
-              transactionStatus: payment.transactionStatus,
-            },
-          },
-        },
-        { new: true },
-      );
-    }
+    // if (!updatedOrder) {
+    //   throw new AppError(httpStatus.BAD_REQUEST, 'Failed to update order');
+    // }
 
-    if (!updatedOrder) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to update order');
-    }
-
-    return {
-      order: updatedOrder,
-      payment,
-    };
+    // return {
+    //   order: updatedOrder,
+    //   payment,
+    // };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     throw new Error(err);
