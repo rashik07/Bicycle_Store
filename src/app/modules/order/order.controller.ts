@@ -29,12 +29,42 @@ const getTotalRevenue = async (req: Request, res: Response) => {
     console.log(err);
   }
 };
+const verifyPayment = catchAsync(async (req: Request, res: Response) => {
+  const { paymentId } = req.params;
+  const result = await orderServices.verifyPayment(paymentId);
+  res.status(200).json({
+    success: true,
+    message: 'Payment verified successfully',
+    data: result,
+  });
+});
 
+const getAllOrders = catchAsync(async (req: Request, res: Response) => {
+  const { data, meta } = await orderServices.getAllOrdersFromDB(req.query);
+  res.status(200).json({
+    success: true,
+    message: 'Orders retrieved successfully',
+    data,
+    meta,
+  });
+});
+
+const getMyOrders = catchAsync(async (req: Request, res: Response) => {
+  //use params  
+  const email = req.params.email;
+  const result = await orderServices.getMyOrdersFromDB(email);
+  res.status(200).json({
+    success: true,
+    message: 'Orders retrieved successfully',
+    data: result,
+  });
+});
 export const OrderControllers = {
   createOrder,
   getTotalRevenue,
-  // getAllBicyle,
-  // getSpecificByBicyle,
+  verifyPayment,
+  getAllOrders,
+  getMyOrders,
   // updateSpecificByBicyle,
   // deleteSpecificBicyle
 };
