@@ -140,19 +140,9 @@ const createAdminIntoDB = async (
   }
 };
 
-const getMe = async (userId: string, role: string) => {
-  let result = null;
-  // if (role === 'Customer') {
-  //   result = await Customer.findOne({ id: userId }).populate('user');
-  // }
-  if (role === 'admin') {
-    result = await Admin.findOne({ id: userId }).populate('user');
-  }
-
-  // if (role === 'faculty') {
-  //   result = await Faculty.findOne({ id: userId }).populate('user');
-  // }
-
+// get personal details from db
+const getMeFromDB = async (email: string) => {
+  const result = await User.findOne({ email });
   return result;
 };
 
@@ -181,6 +171,6 @@ export const UserServices = {
   // createFacultyIntoDB,
   getAllUsersFromDB,
   createAdminIntoDB,
-  getMe,
+  getMeFromDB,
   changeStatus,
 };

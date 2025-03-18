@@ -34,7 +34,7 @@ router.post(
 );
 
 router.get(
-  '/me',
+  '/me/:email',
   auth(USER_ROLE.admin, USER_ROLE.customer),
   UserControllers.getMe,
 );

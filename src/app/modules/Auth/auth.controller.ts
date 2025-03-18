@@ -29,12 +29,12 @@ const loginUser = catchAsync(async (req, res) => {
 
 const changePassword = catchAsync(async (req, res) => {
   const { ...passwordData } = req.body;
-
-  const result = await AuthServices.changePassword(req.user, passwordData);
+// console.log(req);
+  const result = await AuthServices.changePassword(req.body.user.data, passwordData);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Password is updated succesfully!',
+    message: 'Password is updated successfully!',
     data: result,
   });
 });
@@ -47,7 +47,7 @@ const refreshToken = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Access token is retrieved succesfully!',
+    message: 'Access token is retrieved successfully!',
     data: result,
   });
 });
@@ -58,7 +58,7 @@ const forgetPassword = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Reset link is generated succesfully!',
+    message: 'Reset link is generated successfully!',
     data: result,
   });
 });
