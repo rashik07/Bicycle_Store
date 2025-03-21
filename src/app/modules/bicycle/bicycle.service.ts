@@ -2,6 +2,7 @@ import { BicycleModel } from './bicycle.model';
 import { Bicycle } from './bicycle.interface';
 import QueryBuilder from '../../builder/QueryBuilder';
 import { sendImageToCloudinary } from '../../utils/sendImageToCloudinary';
+import { productSearchableFields } from './bicycle.constant';
 
 const createBicycleIntoDB = async (file: any,bicycle: Bicycle) => {
   // console.log(file);
@@ -23,6 +24,7 @@ const getAllBicycleFromDB = async (query: Record<string, unknown>) => {
   // const result = await BicycleModel.find();
   // return result;
   const bicycleQuery = new QueryBuilder(BicycleModel.find(), query)
+    .search(productSearchableFields)
     .filter()
     .sort()
     .paginate()
@@ -35,6 +37,7 @@ const getAllBicycleFromDB = async (query: Record<string, unknown>) => {
     meta,
     result,
   };
+
 };
 
 const getSpecificByBicycleFromDB = async (_id: string) => {
