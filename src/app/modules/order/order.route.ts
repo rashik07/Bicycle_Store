@@ -16,4 +16,6 @@ router.get(
     auth(USER_ROLE.customer, USER_ROLE.admin),
     OrderControllers.getMyOrders,
   );
+router.delete('/:orderId', auth(USER_ROLE.admin), OrderControllers.deleteSpecificBicycle);
+
 export const orderRoutes = router;

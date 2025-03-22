@@ -1,8 +1,10 @@
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
-
+import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import { orderServices } from './order.service';
+import sendResponse from '../../utils/sendResponse';
 
 const createOrder = catchAsync(async (req: Request, res: Response) => {
   const orderData = req.body;
@@ -50,7 +52,7 @@ const getAllOrders = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getMyOrders = catchAsync(async (req: Request, res: Response) => {
-  //use params  
+  //use params
   const email = req.params.email;
   const result = await orderServices.getMyOrdersFromDB(email);
   res.status(200).json({
@@ -59,6 +61,22 @@ const getMyOrders = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+
+const deleteSpecificBicycle = catchAsync(async (req, res) => {
+  const { orderId: _id } = req.params;
+
+  const result = await orderServices.deleteSpecificOrderFromDB(_id);
+
+  
+  //send response
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'order deleted successfully',
+    data: result,
+  });
+});
+
 export const OrderControllers = {
   createOrder,
   getTotalRevenue,
@@ -66,5 +84,5 @@ export const OrderControllers = {
   getAllOrders,
   getMyOrders,
   // updateSpecificByBicyle,
-  // deleteSpecificBicyle
+  deleteSpecificBicycle
 };
