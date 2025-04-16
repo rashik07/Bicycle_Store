@@ -46,7 +46,15 @@ const getSpecificByBicycleFromDB = async (_id: string) => {
   return result;
 };
 
-const updateBicycleFromDB = async (_id: string, updatedData: Bicycle) => {
+const updateBicycleFromDB = async (file: any,_id: string, updatedData: Bicycle) => {
+  if (file) {
+    const imageName = `${file?.filename}`;
+    const path = file?.path;
+
+    //send image to cloudinary
+    const { secure_url } = await sendImageToCloudinary(imageName, path);
+    updatedData.productImg = secure_url as string;
+  }
   const result = await BicycleModel.findByIdAndUpdate(_id, updatedData, {
     new: true,
     runValidators: true,

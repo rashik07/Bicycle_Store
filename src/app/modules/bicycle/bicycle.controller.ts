@@ -49,7 +49,7 @@ const getSpecificByBicycle = catchAsync(async (req, res) => {
 const updateSpecificByBicycle = catchAsync(async (req, res) => {
   const { productId: _id } = req.params;
   const updatedData = req.body;
-  const result = await BicycleServices.updateBicycleFromDB(_id, updatedData);
+  const result = await BicycleServices.updateBicycleFromDB(req.file,_id, updatedData);
 
   //send response
   sendResponse(res, {
