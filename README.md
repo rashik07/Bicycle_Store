@@ -1,27 +1,46 @@
-# Bicycle Store - E-commerce Platform
+# 🚴 Bicycle Store – Full-Stack E-commerce Application
 
-This is a full-stack e-commerce application for managing and selling bicycles. The platform includes features for user authentication, product management, order processing, and payment integration.
+This is a full-stack e-commerce application for managing and selling bicycles. The platform includes features for user authentication, product management, order processing, and payment integration with ShurjoPay.
 
-## Features
+---
 
-- **User Management**: Admins and customers can register, log in, and manage their accounts.
-- **Product Management**: Admins can add, update, and delete bicycles. Customers can view available bicycles.
-- **Order Management**: Customers can place orders, and admins can manage orders.
-- **Payment Integration**: Integrated with ShurjoPay for secure payment processing.
-- **Error Handling**: Centralized error handling for better debugging and user feedback.
-- **Image Upload**: Cloudinary integration for uploading and managing product images.
+## ✨ Features
 
-## Tech Stack
+- **User Management**:  
+  Admins and customers can register, log in, and manage their accounts.
 
-- **Backend**: Node.js, Express.js, TypeScript
-- **Database**: MongoDB with Mongoose
-- **Authentication**: JSON Web Tokens (JWT)
-- **Validation**: Zod for schema validation
-- **Payment Gateway**: ShurjoPay
-- **Image Upload**: Cloudinary
-- **Environment Management**: dotenv
+- **Product Management**:  
+  Admins can add, update, and delete bicycles. Customers can view all available bicycles.
 
-## Project Structure
+- **Order Management**:  
+  Customers can place orders. Admins can view and manage all orders.
+
+- **Payment Integration**:  
+  Secure payment processing using [ShurjoPay](https://shurjopay.com.bd/).
+
+- **Image Upload**:  
+  Cloudinary integration for uploading and managing product images.
+
+- **Error Handling**:  
+  Centralized error handling for improved debugging and user feedback.
+
+---
+
+## 🛠 Tech Stack
+
+- **Backend**: Node.js, Express.js, TypeScript  
+- **Database**: MongoDB with Mongoose  
+- **Authentication**: JSON Web Tokens (JWT)  
+- **Validation**: Zod for request schema validation  
+- **Payment Gateway**: ShurjoPay  
+- **Image Upload**: Cloudinary  
+- **Environment Management**: dotenv  
+
+---
+
+## 📁 Project Structure
+
+
 
 ## Installation
 
