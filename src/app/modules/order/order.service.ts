@@ -187,7 +187,7 @@ const totalRevenue = async () => {
       },
     },
   ]);
-  console.log(result);
+ 
   return result;
 };
 
