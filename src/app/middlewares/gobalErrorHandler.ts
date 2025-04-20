@@ -12,7 +12,7 @@ import handleCastError from '../errors/handleCastError';
 import handleDuplicateError from '../errors/handleDuplicateError';
 import { ErrorRequestHandler } from 'express';
 
-const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
+const globalErrorHandler: ErrorRequestHandler = (err, req, res, next): void => {
 
   let statusCode = 500;
   let message = 'Something went wrong!';
@@ -64,7 +64,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   }
 
   //ultimate return
-  return res.status(statusCode).json({
+  res.status(statusCode).json({
     message,
     success: false,
    
