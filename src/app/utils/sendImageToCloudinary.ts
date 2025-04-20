@@ -2,7 +2,6 @@ import { UploadApiResponse, v2 as cloudinary } from 'cloudinary';
 import fs from 'fs';
 import multer from 'multer';
 import config from '../config';
-import path from 'path';
 
 cloudinary.config({
   cloud_name: config.cloudinary_cloud_name,
@@ -38,7 +37,7 @@ export const sendImageToCloudinary = (
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null,  path.join(process.cwd() , '/uploads/'));
+    cb(null, process.cwd() + '/uploads/');
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -47,3 +46,32 @@ const storage = multer.diskStorage({
 });
 
 export const upload = multer({ storage: storage });
+// import multer from 'multer';
+
+// export const upload = multer({ storage: multer.memoryStorage() });
+
+
+// import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
+// import streamifier from 'streamifier';
+// import config from '../config';
+// cloudinary.config({
+//   cloud_name: config.cloudinary_cloud_name,
+//   api_key: config.cloudinary_api_key,
+//   api_secret: config.cloudinary_api_secret,
+// });
+
+// export const sendImageToCloudinary = (
+//   imageName: string,
+//   buffer: Buffer
+// ): Promise<UploadApiResponse> => {
+//   return new Promise((resolve, reject) => {
+//     const uploadStream = cloudinary.uploader.upload_stream(
+//       { public_id: imageName.trim() },
+//       (error, result) => {
+//         if (error) return reject(error);
+//         resolve(result as UploadApiResponse);
+//       }
+//     );
+//     streamifier.createReadStream(buffer).pipe(uploadStream);
+//   });
+// };
