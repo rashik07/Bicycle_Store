@@ -64,14 +64,14 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   }
 
   //ultimate return
-  res.status(statusCode).json({
+  return res.status(statusCode).json({
     message,
     success: false,
+   
     errorSources,
     err,
     stack: config.NODE_ENV === 'development' ? err?.stack : null,
   });
-  next();
 };
 
 export default globalErrorHandler;
